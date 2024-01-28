@@ -1,0 +1,24 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using ExampleAPI.Core;
+
+namespace ExampleAPI.Entities;
+
+public class User : Entity<Guid>
+{
+	[MaxLength(150)]
+	public required string FirstName { get; set; }
+	[MaxLength(150)]
+	public required string LastName { get; set; }
+	public short BirthYear { get; set; }
+	
+	public required long IdentificationNumber { get; set; }
+	[MaxLength(10)]
+	public string? CarPlate { get; set; }
+	public virtual ICollection<Order> Orders { get; set; }
+	public virtual ICollection<AccountTransaction> AccountTransactions { get; set; }
+	public User()
+	{
+		AccountTransactions = new HashSet<AccountTransaction>();
+	}
+}
